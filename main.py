@@ -5,12 +5,9 @@ def extract_product_info(url):
     try:
         response = requests.get(url)
         response.raise_for_status()
-
         soup = BeautifulSoup(response.text, 'html.parser')
-
         product_name_tag = soup.find('h1')
         product_name = product_name_tag.text.strip() if product_name_tag else "Nom du produit non trouvé"
-
         price_elements = soup.find_all('span', class_='woocommerce-Price-amount')
         if len(price_elements) >= 2:
             product_price = price_elements[1].find('bdi').text.strip()
